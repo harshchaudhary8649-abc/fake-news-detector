@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Detector</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-title">📰 Fake News Detector</div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/history">History</a>
+            <a href="/about">About</a>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>AI-Based Fake News Detector</h1>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <form action="/predict" method="post">
+                <h3>Enter News Text</h3>
+                <textarea name="news" rows="7" placeholder="Type or paste news content here..."></textarea>
+
+                <div class="divider">OR</div>
+
+                <h3>Enter News URL</h3>
+                <input type="text" name="url" placeholder="Paste news URL here">
+
+  <button type="submit">
+    <i class="fa-solid fa-magnifying-glass"></i> Analyze News
+</button>
+            </form>
+        </div>
+
+        {% if prediction_text %}
+        <div class="card result-card">
+            <h2 class="result-heading">{{ prediction_text }}</h2>
+
+            {% if report_available %}
+            <div class="download-report-box">
+                <a href="/download-report" class="download-btn">
+    <i class="fa-solid fa-file-pdf"></i> Download PDF Report
+</a>
+            </div>
+            {% endif %}
+
+            {% if confidence %}
+            <div class="info-line"><strong>Model Confidence:</strong> {{ confidence }}%</div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: {{ confidence }}%;">{{ confidence }}%</div>
+            </div>
+            {% endif %}
+
+            {% if credibility_score is not none %}
+            <div class="info-line"><strong>Credibility Score:</strong> {{ credibility_score }}/100</div>
+            {% endif %}
+
+            {% if risk %}
+            <div class="info-line"><strong>Risk Level:</strong> {{ risk }}</div>
+            {% endif %}
+
+            {% if reason %}
+            <div class="info-line"><strong>Main Reason:</strong> {{ reason }}</div>
+            {% endif %}
+
+            {% if summary %}
+            <div class="info-line"><strong>Summary:</strong> {{ summary }}</div>
+            {% endif %}
+
+            {% if source %}
+            <div class="info-line"><strong>Input Type:</strong> {{ source }}</div>
+            {% endif %}
+
+            {% if source_reliability %}
+            <div class="info-line"><strong>Source Reliability:</strong> {{ source_reliability }}</div>
+            {% endif %}
+
+            {% if domain %}
+            <div class="info-line"><strong>Domain:</strong> {{ domain }}</div>
+            {% endif %}
+
+            {% if word_count %}
+            <div class="info-line"><strong>Word Count:</strong> {{ word_count }}</div>
+            {% endif %}
+
+            {% if extra_note %}
+            <div class="info-line"><strong>Note:</strong> {{ extra_note }}</div>
+            {% endif %}
+
+            {% if keywords and keywords|length > 0 %}
+            <div class="keywords-box">
+                <strong>Suspicious Keywords:</strong> {{ keywords }}
+            </div>
+            {% endif %}
+
+            <div class="report-box">
+                <h3>Similarity Analysis</h3>
+                <div class="report-grid">
+                    <div class="report-item">
+                        <span>Fake Pattern Similarity</span>
+                        <strong>{{ fake_similarity }}%</strong>
+                    </div>
+                    <div class="report-item">
+                        <span>Real Pattern Similarity</span>
+                        <strong>{{ real_similarity }}%</strong>
+                    </div>
+                    <div class="report-item">
+                        <span>Closest Pattern</span>
+                        <strong>{{ similarity_type }}</strong>
+                    </div>
+                    <div class="report-item">
+                        <span>Hybrid Engine</span>
+                        <strong>Active</strong>
+                    </div>
+                </div>
+            </div>
+
+            {% if reason_list %}
+            <div class="report-box">
+                <h3>Detailed Explanation</h3>
+                <ul class="reason-list">
+                    {% for item in reason_list %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <div class="report-box">
+                <h3>Analysis Report</h3>
+                <div class="report-grid">
+                    <div class="report-item">
+                        <span>ML Analysis</span>
+                        <strong>Completed</strong>
+                    </div>
+                    <div class="report-item">
+                        <span>Credibility Engine</span>
+                        <strong>Completed</strong>
+                    </div>
+                    <div class="report-item">
+                        <span>Keyword Check</span>
+                        <strong>Completed</strong>
+                    </div>
+                    <div class="report-item">
+                        <span>Source Review</span>
+                        <strong>{{ source_reliability }}</strong>
+                    </div>
+                    <div class="report-item">
+                        <span>Similarity Engine</span>
+                        <strong>{{ similarity_type }}</strong>
+                    </div>
+                    <div class="report-item">
+                        <span>Final Status</span>
+                        <strong>{{ prediction_text }}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,166 @@
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #f5f7fb;
+}
+
+/* NAVBAR */
+.navbar {
+    background: white;
+    padding: 16px 40px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+}
+
+.nav-title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.nav-links a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #444;
+}
+
+.nav-links a:hover {
+    color: #4f46e5;
+}
+
+/* HEADER */
+.page-header {
+    text-align: center;
+    padding: 30px;
+}
+
+.page-header h1 {
+    font-size: 34px;
+    margin: 0;
+}
+
+/* CONTAINER */
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* CARD */
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* INPUT */
+textarea,
+input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-top: 8px;
+}
+
+/* BUTTON */
+button {
+    width: 100%;
+    margin-top: 18px;
+    padding: 12px;
+    background: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+button i {
+    margin-right: 8px;
+}
+
+button:hover {
+    background: #4338ca;
+}
+
+/* RESULT */
+.result-heading {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* FIXED PROGRESS BAR */
+.progress-bar-bg {
+    margin-top: 12px;
+    background: #eee;
+    border-radius: 25px;
+    height: 18px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg,#22c55e,#16a34a);
+    text-align: center;
+    font-size: 12px;
+    color: white;
+    line-height: 18px;
+}
+
+/* INFO */
+.info-line {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* REPORT */
+.report-box {
+    margin-top: 18px;
+    background: #f9fafb;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.report-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.report-item {
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+/* DOWNLOAD */
+.download-btn {
+    display: inline-block;
+    padding: 10px 14px;
+    background: #dc2626;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.download-btn i {
+    margin-right: 6px;
+}
+
+.download-btn:hover {
+    background: #b91c1c;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+}

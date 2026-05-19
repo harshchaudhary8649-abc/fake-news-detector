@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Fake News Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-title">📰 Fake News Detector</div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/history">History</a>
+            <a href="/about">About</a>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>About Project</h1>
+        <p>Minor project methodology, dataset usage, backend engine, and evaluation</p>
+    </div>
+
+    <div class="container single-column">
+        <div class="card">
+            <h2>Project Title</h2>
+            <p>Fake News Detector using Machine Learning</p>
+        </div>
+
+        <div class="card">
+            <h2>Objective</h2>
+            <p>
+                This project analyzes news content and classifies it as reliable, moderately reliable,
+                suspicious, or highly suspicious using a hybrid backend engine.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>Dataset Used</h2>
+            <p>
+                The system is trained using real-world labeled data from <strong>Fake.csv</strong> and
+                <strong>True.csv</strong>. This improves realism and makes the backend stronger than a
+                toy sample-based classifier.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>Backend Engine</h2>
+            <p>
+                The system preprocesses input text, converts it using TF-IDF vectorization, compares
+                machine learning models, selects the best model, and then uses hybrid credibility scoring.
+                The final result is based on machine learning confidence, source reliability, keyword risk,
+                content quality, and similarity with known fake and real news patterns.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>Model Information</h2>
+            <p><strong>Best Model:</strong> {{ model_info.best_model }}</p>
+            <p><strong>Accuracy:</strong> {{ model_info.accuracy }}%</p>
+            <p><strong>Total Dataset Size:</strong> {{ model_info.dataset_size }}</p>
+            <p><strong>Real Samples:</strong> {{ model_info.real_samples }}</p>
+            <p><strong>Fake Samples:</strong> {{ model_info.fake_samples }}</p>
+        </div>
+
+        <div class="card">
+            <h2>Main Features</h2>
+            <p>
+                Text input, URL input, NLP preprocessing, model comparison, credibility score,
+                source reliability analysis, suspicious keyword detection, similarity engine,
+                explanation engine, history tracking, and report-based output.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>Future Scope</h2>
+            <p>
+                The project can be extended with live fact-check APIs, multilingual news analysis,
+                transformer-based deep learning models, and browser-based extension support.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

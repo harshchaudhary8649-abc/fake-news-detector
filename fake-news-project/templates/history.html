@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History - Fake News Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-title">📰 Fake News Detector</div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/history">History</a>
+            <a href="/about">About</a>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>Analysis History</h1>
+        <p>View, delete, or clear previous analysis records</p>
+    </div>
+
+    <div class="container single-column">
+        <div class="card history-actions">
+            <form action="/clear-history" method="post" onsubmit="return confirm('Clear all history?')">
+                <button type="submit" class="danger-btn">Clear All History</button>
+            </form>
+        </div>
+
+        {% if records %}
+            {% for item in records %}
+            <div class="card history-card">
+                <div class="history-top">
+                    <div>
+                        <div class="history-row"><strong>Analysis ID:</strong> {{ item.id }}</div>
+                        <div class="history-row"><strong>Date & Time:</strong> {{ item.timestamp }}</div>
+                    </div>
+
+                    <form action="/delete-history/{{ item.id }}" method="post" onsubmit="return confirm('Delete this record?')">
+                        <button type="submit" class="small-danger-btn">Delete</button>
+                    </form>
+                </div>
+
+                <div class="history-row"><strong>Preview:</strong> {{ item.preview }}</div>
+                <div class="history-row"><strong>Input Type:</strong> {{ item.input_type }}</div>
+                <div class="history-row"><strong>Domain:</strong> {{ item.domain }}</div>
+                <div class="history-row"><strong>Result:</strong> {{ item.result }}</div>
+                <div class="history-row"><strong>Confidence:</strong> {{ item.confidence }}%</div>
+                <div class="history-row"><strong>Credibility Score:</strong> {{ item.credibility_score }}/100</div>
+                <div class="history-row"><strong>Risk:</strong> {{ item.risk }}</div>
+                <div class="history-row"><strong>Source Reliability:</strong> {{ item.source_reliability }}</div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="card">
+                <h3>No history available yet.</h3>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
