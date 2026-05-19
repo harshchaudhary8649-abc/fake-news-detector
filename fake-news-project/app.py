@@ -9,7 +9,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
 
-
+# mera 
 app = Flask(__name__)
 app.secret_key = "fake_news_detector_secret_key"
 
