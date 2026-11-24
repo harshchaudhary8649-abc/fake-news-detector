@@ -1,3 +1,8 @@
+import os
+import json
+import pickle
+import re
+import uuid
 from flask import Flask, render_template, request, redirect, url_for, session, send_file
 from datetime import datetime
 from urllib.parse import urlparse
@@ -8,6 +13,14 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+
+try:
+    from newspaper import Article
+    NEWSPAPER_AVAILABLE = True
+except Exception:
+    NEWSPAPER_AVAILABLE = False
 
 # mera 
 app = Flask(__name__)
@@ -164,8 +177,14 @@ def generate_reasons(keyword_count, source_reliability, word_count, confidence, 
 
 def load_reference_samples():
     try:
-        fake_df = pd.read_csv("Fake.csv")
-        true_df = pd.read_csv("True.csv")
+        fake_path = "Fake.csv" if os.path.exists("Fake.csv") else os.path.join("..", "Fake.csv")
+        true_path = "True.csv" if os.path.exists("True.csv") else os.path.join("..", "True.csv")
+
+        if not os.path.exists(fake_path) or not os.path.exists(true_path):
+            return [], []
+
+        fake_df = pd.read_csv(fake_path, nrows=300)
+        true_df = pd.read_csv(true_path, nrows=300)
 
         fake_samples = fake_df["text"].dropna().astype(str).head(200).tolist()
         true_samples = true_df["text"].dropna().astype(str).head(200).tolist()
@@ -466,7 +485,7 @@ def predict():
         prediction=prediction
     )
 
-
+    primary_reason = reasons[0] if reasons else "Pattern analysis completed."
 
     summary_words = raw_text.split()[:25]
     summary = " ".join(summary_words)
@@ -497,7 +516,25 @@ def predict():
 
     save_history(record)
 
-    
+    session["latest_report"] = {
+        "result": final_result,
+        "timestamp": record["timestamp"],
+        "confidence": confidence,
+        "credibility_score": credibility_score,
+        "risk": risk,
+        "source": source_input_type,
+        "source_reliability": source_reliability,
+        "domain": domain if domain else "-",
+        "word_count": word_count,
+        "reason": primary_reason,
+        "summary": summary,
+        "fake_similarity": fake_similarity,
+        "real_similarity": real_similarity,
+        "similarity_type": similarity_type,
+        "keywords": matched_keywords,
+        "reason_list": reasons
+    }
+
     return render_template(
         "index.html",
         prediction_text=final_result,
@@ -517,7 +554,7 @@ def predict():
         real_similarity=real_similarity,
         similarity_type=similarity_type,
         model_info=model_info,
-        report_available=false
+        report_available=True
     )
 
 

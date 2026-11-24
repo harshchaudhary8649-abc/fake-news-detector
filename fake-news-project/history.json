@@ -1,1 +1,26 @@
-[]
+[
+    {
+        "id": "f7e8498e",
+        "timestamp": "25-11-2026 12:13 AM",
+        "input_type": "Manual Text",
+        "domain": "-",
+        "result": "Moderately Reliable News \ud83d\udfe1",
+        "confidence": 85.67,
+        "credibility_score": 60,
+        "risk": "Medium Risk \ud83d\udfe1",
+        "source_reliability": "Not Applicable",
+        "preview": "Government announces new education policy for all schools across the country today."
+    },
+    {
+        "id": "9c083e6f",
+        "timestamp": "25-11-2026 12:13 AM",
+        "input_type": "Manual Text",
+        "domain": "-",
+        "result": "Moderately Reliable News \ud83d\udfe1",
+        "confidence": 85.67,
+        "credibility_score": 60,
+        "risk": "Medium Risk \ud83d\udfe1",
+        "source_reliability": "Not Applicable",
+        "preview": "Government announces new education policy for all schools across the country today."
+    }
+]
